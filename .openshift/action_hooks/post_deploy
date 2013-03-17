@@ -15,7 +15,7 @@ drop database if exists ${OPENSHIFT_APP_NAME};
 create database ${OPENSHIFT_APP_NAME} character set utf8;
 MYEOF
 
-	/usr/bin/mysql -h ${OPENSHIFT_MYSQL_DB_HOST} -u ${OPENSHIFT_MYSQL_DB_USERNAME} --password=${OPENSHIFT_MYSQL_DB_PASSWORD} < ${OPENSHIFT_REPO_DIR}php/schema/ttrss_schema_mysql.sql
+	/usr/bin/mysql -h ${OPENSHIFT_MYSQL_DB_HOST} -u ${OPENSHIFT_MYSQL_DB_USERNAME} --password=${OPENSHIFT_MYSQL_DB_PASSWORD} ${OPENSHIFT_APP_NAME} < ${OPENSHIFT_REPO_DIR}php/schema/ttrss_schema_mysql.sql
 else
 	echo
 	echo "Schema found!"
