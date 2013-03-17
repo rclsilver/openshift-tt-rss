@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pushd ${OPENSHIFT_REPO_DIR}php >/dev/null
+php -f update.php -- -feeds >>${OPENSHIFT_PHP_LOG_DIR}update-feeds.log
+popd >/dev/null
