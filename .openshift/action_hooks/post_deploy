@@ -11,6 +11,8 @@ fi
 if [ ! -d ${OPENSHIFT_DATA_DIR}cache ]
 then
 	mkdir ${OPENSHIFT_DATA_DIR}cache
+	mkdir ${OPENSHIFT_DATA_DIR}cache/images
+	mkdir ${OPENSHIFT_DATA_DIR}cache/export
 fi
 
 if [ ! -d ${OPENSHIFT_DATA_DIR}feed-icons ]
@@ -18,4 +20,4 @@ then
 	mkdir ${OPENSHIFT_DATA_DIR}feed-icons
 fi
 
-ln -s ${OPENSHIFT_DATA_DIR}feed-icons ${OPENSHIFT_REPO_DIR}feed-icons
+ln -s ${OPENSHIFT_DATA_DIR}feed-icons ${OPENSHIFT_REPO_DIR}php/feed-icons
