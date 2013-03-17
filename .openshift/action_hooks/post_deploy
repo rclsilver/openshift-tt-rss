@@ -2,3 +2,20 @@
 # This is a simple post deploy hook executed after your application 
 # is deployed and started.  This script gets executed directly, so 
 # it could be python, php, ruby, etc.
+
+if [ ! -d ${OPENSHIFT_DATA_DIR}lock ]
+then
+	mkdir ${OPENSHIFT_DATA_DIR}lock
+fi
+
+if [ ! -d ${OPENSHIFT_DATA_DIR}cache ]
+then
+	mkdir ${OPENSHIFT_DATA_DIR}cache
+fi
+
+if [ ! -d ${OPENSHIFT_DATA_DIR}feed-icons ]
+then
+	mkdir ${OPENSHIFT_DATA_DIR}feed-icons
+fi
+
+ln -s ${OPENSHIFT_DATA_DIR}feed-icons ${OPENSHIFT_REPO_DIR}feed-icons
