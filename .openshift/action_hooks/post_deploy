@@ -3,6 +3,25 @@
 # is deployed and started.  This script gets executed directly, so 
 # it could be python, php, ruby, etc.
 
+qry="select * from ${OPENSHIFT_APP_NAME}.ttrs_version;"
+
+if ! /usr/bin/mysql -h ${OPENSHIFT_MYSQL_DB_HOST} -u ${OPENSHIFT_MYSQL_DB_USERNAME} --password=${OPENSHIFT_MYSQL_DB_PASSWORD} -e "${qry}" >/dev/null 2>&1
+then
+	echo
+	echo "Schema not found! Recreating tt-rss schema."
+	echo
+	/usr/bin/mysql -h ${OPENSHIFT_MYSQL_DB_HOST} -u ${OPENSHIFT_MYSQL_DB_USERNAME} --password=${OPENSHIFT_MYSQL_DB_PASSWORD} <<MYEOF
+drop database if exists ${OPENSHIFT_APP_NAME};
+create database ${OPENSHIFT_APP_NAME} character set utf8;
+MYEOF
+
+	/usr/bin/mysql -h ${OPENSHIFT_MYSQL_DB_HOST} -u ${OPENSHIFT_MYSQL_DB_USERNAME} --password=${OPENSHIFT_MYSQL_DB_PASSWORD} < ${OPENSHIFT_REPO_DIR}php/schema/ttrss_schema_mysql.sql
+else
+	echo
+	echo "Schema found!"
+	echo
+fi
+
 if [ ! -d ${OPENSHIFT_DATA_DIR}lock ]
 then
 	mkdir ${OPENSHIFT_DATA_DIR}lock
